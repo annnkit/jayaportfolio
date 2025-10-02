@@ -23,9 +23,13 @@
             --border-color: #e5e7eb;
             --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
             --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
         }
 
         [data-theme="dark"] {
+            --primary-color: #818cf8;
+            --secondary-color: #a78bfa;
+            --accent-color: #fbbf24;
             --text-primary: #f9fafb;
             --text-secondary: #d1d5db;
             --bg-primary: #111827;
@@ -40,7 +44,8 @@
             line-height: 1.6;
             color: var(--text-primary);
             background-color: var(--bg-primary);
-            transition: all 0.3s ease;
+            transition: var(--transition);
+            overflow-x: hidden;
         }
 
         .container {
@@ -57,7 +62,7 @@
             top: 0;
             width: 100%;
             z-index: 1000;
-            transition: all 0.3s ease;
+            transition: var(--transition);
         }
 
         nav {
@@ -84,11 +89,27 @@
             text-decoration: none;
             color: var(--text-primary);
             font-weight: 500;
-            transition: color 0.3s ease;
+            transition: var(--transition);
+            position: relative;
         }
 
         .nav-links a:hover {
             color: var(--primary-color);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary-color);
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
         }
 
         .theme-toggle {
@@ -102,12 +123,13 @@
             justify-content: center;
             cursor: pointer;
             color: var(--text-primary);
-            transition: all 0.3s ease;
+            transition: var(--transition);
         }
 
         .theme-toggle:hover {
             border-color: var(--primary-color);
             color: var(--primary-color);
+            transform: rotate(15deg);
         }
 
         /* Hero Section */
@@ -118,6 +140,7 @@
             text-align: center;
             position: relative;
             color: white;
+            overflow: hidden;
         }
 
         .hero::before {
@@ -170,12 +193,29 @@
             border-radius: 8px;
             text-decoration: none;
             font-weight: 600;
-            transition: all 0.3s ease;
+            transition: var(--transition);
             display: inline-flex;
             align-items: center;
             gap: 8px;
             border: none;
             cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: 0.5s;
+        }
+
+        .btn:hover::before {
+            left: 100%;
         }
 
         .btn-primary {
@@ -210,6 +250,19 @@
             font-weight: 700;
             margin-bottom: 3rem;
             color: var(--text-primary);
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            border-radius: 2px;
         }
 
         .section-subtitle {
@@ -241,6 +294,7 @@
             margin: 0 auto;
             box-shadow: var(--shadow-lg);
             overflow: hidden;
+            position: relative;
         }
 
         .about-image img {
@@ -274,7 +328,25 @@
             padding: 2rem;
             border-radius: 12px;
             box-shadow: var(--shadow);
-            transition: all 0.3s ease;
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .skill-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 5px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--primary-color), var(--secondary-color));
+            transform: scaleY(0);
+            transition: var(--transition);
+        }
+
+        .skill-card:hover::before {
+            transform: scaleY(1);
         }
 
         .skill-card:hover {
@@ -302,6 +374,8 @@
             box-shadow: var(--shadow);
             margin-bottom: 2rem;
             border-left: 4px solid var(--primary-color);
+            position: relative;
+            overflow: hidden;
         }
 
         .company-name {
@@ -349,7 +423,8 @@
             border-radius: 12px;
             overflow: hidden;
             box-shadow: var(--shadow);
-            transition: all 0.3s ease;
+            transition: var(--transition);
+            position: relative;
         }
 
         .project-card:hover {
@@ -373,6 +448,11 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .project-card:hover .project-image img {
+            transform: scale(1.05);
         }
 
         .project-image i {
@@ -410,10 +490,12 @@
             display: inline-flex;
             align-items: center;
             gap: 0.5rem;
+            transition: var(--transition);
         }
 
         .project-link:hover {
             text-decoration: underline;
+            color: var(--secondary-color);
         }
 
         /* Contact Section */
@@ -445,7 +527,7 @@
             align-items: center;
             justify-content: center;
             box-shadow: var(--shadow);
-            transition: all 0.3s ease;
+            transition: var(--transition);
         }
 
         .contact-icon:hover {
@@ -464,7 +546,7 @@
         .contact-link {
             color: var(--text-secondary);
             text-decoration: none;
-            transition: color 0.3s ease;
+            transition: var(--transition);
         }
 
         .contact-link:hover {
@@ -477,6 +559,71 @@
             color: var(--bg-primary);
             text-align: center;
             padding: 2rem 0;
+        }
+
+        /* Contact Form Styles */
+        .contact-form-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: var(--bg-primary);
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--text-primary);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            font-size: 1rem;
+            transition: var(--transition);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+        }
+
+        textarea.form-control {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .form-status {
+            margin-top: 1rem;
+            padding: 1rem;
+            border-radius: 8px;
+            text-align: center;
+            display: none;
+        }
+
+        .form-status.success {
+            background: #d1fae5;
+            color: #065f46;
+            border: 1px solid #a7f3d0;
+            display: block;
+        }
+
+        .form-status.error {
+            background: #fee2e2;
+            color: #991b1b;
+            border: 1px solid #fecaca;
+            display: block;
         }
 
         /* Responsive */
@@ -509,7 +656,7 @@
             scroll-behavior: smooth;
         }
 
-        /* Animation */
+        /* Animation Classes */
         .fade-in {
             opacity: 0;
             transform: translateY(30px);
@@ -519,6 +666,178 @@
         .fade-in.visible {
             opacity: 1;
             transform: translateY(0);
+        }
+
+        .slide-in-left {
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: all 0.8s ease;
+        }
+
+        .slide-in-left.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .slide-in-right {
+            opacity: 0;
+            transform: translateX(50px);
+            transition: all 0.8s ease;
+        }
+
+        .slide-in-right.visible {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .zoom-in {
+            opacity: 0;
+            transform: scale(0.8);
+            transition: all 0.8s ease;
+        }
+
+        .zoom-in.visible {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .typewriter {
+            overflow: hidden;
+            border-right: 3px solid var(--accent-color);
+            white-space: nowrap;
+            margin: 0 auto;
+            animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
+        }
+
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: var(--accent-color) }
+        }
+
+        /* Reduced Floating Animation */
+        .floating-subtle {
+            animation: floating-subtle 4s ease-in-out infinite;
+        }
+
+        @keyframes floating-subtle {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-8px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.02); }
+            100% { transform: scale(1); }
+        }
+
+        .bounce-in {
+            animation: bounceIn 1s;
+        }
+
+        @keyframes bounceIn {
+            0% { transform: scale(0.3); opacity: 0; }
+            50% { transform: scale(1.05); opacity: 0.9; }
+            70% { transform: scale(0.9); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .stagger-item {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        .stagger-item.visible {
+            opacity: 1;
+            transform: translateY(0);
+            transition: all 0.5s ease-out;
+        }
+
+        /* Particle background for hero */
+        .particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .particle {
+            position: absolute;
+            background: rgba(255, 255, 255, 0.5);
+            border-radius: 50%;
+            animation: float 15s infinite linear;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0) translateX(0); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { transform: translateY(-100px) translateX(20px); opacity: 0; }
+        }
+
+        /* Subtle Floating Shapes */
+        .floating-shapes {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .shape {
+            position: absolute;
+            opacity: 0.05;
+            border-radius: 50%;
+            background: var(--primary-color);
+            animation: shape-float 25s infinite linear;
+        }
+
+        .shape:nth-child(1) {
+            width: 60px;
+            height: 60px;
+            top: 10%;
+            left: 10%;
+            animation-delay: 0s;
+            animation-duration: 30s;
+        }
+
+        .shape:nth-child(2) {
+            width: 80px;
+            height: 80px;
+            top: 60%;
+            left: 80%;
+            animation-delay: 5s;
+            animation-duration: 35s;
+        }
+
+        .shape:nth-child(3) {
+            width: 40px;
+            height: 40px;
+            top: 80%;
+            left: 20%;
+            animation-delay: 10s;
+            animation-duration: 25s;
+        }
+
+        @keyframes shape-float {
+            0% { transform: translateY(0) rotate(0deg); }
+            25% { transform: translateY(-10px) translateX(5px) rotate(90deg); }
+            50% { transform: translateY(-20px) translateX(-5px) rotate(180deg); }
+            75% { transform: translateY(-10px) translateX(5px) rotate(270deg); }
+            100% { transform: translateY(0) rotate(360deg); }
         }
     </style>
 </head>
@@ -541,13 +860,19 @@
     <main>
         <!-- Hero Section -->
         <section id="home" class="hero">
+            <div class="particles" id="particles"></div>
+            <div class="floating-shapes">
+                <div class="shape"></div>
+                <div class="shape"></div>
+                <div class="shape"></div>
+            </div>
             <div class="container">
                 <div class="hero-content fade-in">
-                    <h1>Jayshree Jangir</h1>
-                    <p class="subtitle">Marketing & Brand Strategist</p>
+                    <h1 class="bounce-in">Jayshree Jangir</h1>
+                    <p class="subtitle typewriter">Marketing & Brand Strategist</p>
                     <p class="location"><i class="fas fa-map-marker-alt"></i> Jaipur, India</p>
                     <div class="cta-buttons">
-                        <button class="btn btn-primary" onclick="downloadResume()">
+                        <button class="btn btn-primary floating-subtle" onclick="downloadResume()">
                             <i class="fas fa-download"></i> Download Resume
                         </button>
                         <a href="#contact" class="btn btn-secondary">
@@ -563,7 +888,7 @@
             <div class="container">
                 <h2 class="section-title fade-in">About Me</h2>
                 <div class="about-content">
-                    <div class="about-image fade-in">
+                    <div class="about-image fade-in floating-subtle">
                         <img src="images/1745035581619.jpg" alt="Professional Portrait" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
                         <i class="fas fa-user" style="display: none;"></i>
                     </div>
@@ -587,32 +912,32 @@
             <div class="container">
                 <h2 class="section-title fade-in">Skills & Expertise</h2>
                 <div class="skills-grid">
-                    <div class="skill-card fade-in">
+                    <div class="skill-card slide-in-left stagger-item">
                         <div class="skill-icon"><i class="fas fa-bullhorn"></i></div>
                         <h3 class="skill-title">Brand Strategy & Storytelling</h3>
                         <p>Creating compelling brand narratives and strategic positioning</p>
                     </div>
-                    <div class="skill-card fade-in">
+                    <div class="skill-card zoom-in stagger-item">
                         <div class="skill-icon"><i class="fas fa-chart-line"></i></div>
                         <h3 class="skill-title">Digital Marketing Campaigns</h3>
                         <p>Meta Ads, social media marketing, and campaign optimization</p>
                     </div>
-                    <div class="skill-card fade-in">
+                    <div class="skill-card slide-in-right stagger-item">
                         <div class="skill-icon"><i class="fas fa-shopping-cart"></i></div>
                         <h3 class="skill-title">E-commerce Management</h3>
                         <p>Amazon and Shopify product listing, content strategy, storefront management</p>
                     </div>
-                    <div class="skill-card fade-in">
+                    <div class="skill-card slide-in-left stagger-item">
                         <div class="skill-icon"><i class="fas fa-search"></i></div>
                         <h3 class="skill-title">Research & Analytics</h3>
                         <p>Market research, insights generation, and performance analytics</p>
                     </div>
-                    <div class="skill-card fade-in">
+                    <div class="skill-card zoom-in stagger-item">
                         <div class="skill-icon"><i class="fas fa-calendar-alt"></i></div>
                         <h3 class="skill-title">Project & Event Management</h3>
                         <p>End-to-end project coordination and successful event execution</p>
                     </div>
-                    <div class="skill-card fade-in">
+                    <div class="skill-card slide-in-right stagger-item">
                         <div class="skill-icon"><i class="fas fa-users"></i></div>
                         <h3 class="skill-title">Leadership & Communication</h3>
                         <p>Team leadership, client communication, and stakeholder management</p>
@@ -645,7 +970,7 @@
             <div class="container">
                 <h2 class="section-title fade-in">Key Projects & Campaigns</h2>
                 <div class="projects-grid">
-                    <div class="project-card fade-in">
+                    <div class="project-card slide-in-left stagger-item">
                         <div class="project-image has-image">
                             <img src="images/bxAeO_640x.jpg" alt="Traditional Saree Collection">
                             <i class="fas fa-tshirt"></i>
@@ -653,9 +978,12 @@
                         <div class="project-content">
                             <h3 class="project-title">Rajnesa - Hand-block Print Saree Brand</h3>
                             <p class="project-description">Coordinated complete brand strategy including branding, shoots, storytelling, Shopify management, and product listings.</p>
+                            <a href="https://rajnesa.com/" target="_blank" class="project-link">
+                                View Project <i class="fas fa-external-link-alt"></i>
+                            </a>
                         </div>
                     </div>
-                    <div class="project-card fade-in">
+                    <div class="project-card zoom-in stagger-item">
                         <div class="project-image has-image">
                             <img src="https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=400&h=200&fit=crop&auto=format&q=80" alt="Luxury Jewelry Collection">
                             <i class="fas fa-gem"></i>
@@ -668,7 +996,7 @@
                             </a>
                         </div>
                     </div>
-                    <div class="project-card fade-in">
+                    <div class="project-card slide-in-right stagger-item">
                         <div class="project-image has-image">
                             <img src="https://images.unsplash.com/photo-1559027615-cd4628902d4a?w=400&h=200&fit=crop&auto=format&q=80" alt="Autism Awareness Event">
                             <i class="fas fa-heart"></i>
@@ -681,7 +1009,7 @@
                             </a>
                         </div>
                     </div>
-                    <div class="project-card fade-in">
+                    <div class="project-card slide-in-left stagger-item">
                         <div class="project-image has-image">
                             <img src="https://images.unsplash.com/photo-1541961017774-22349e4a1262?w=400&h=200&fit=crop&auto=format&q=80" alt="Art Festival Event">
                             <i class="fas fa-paint-brush"></i>
@@ -694,7 +1022,7 @@
                             </a>
                         </div>
                     </div>
-                    <div class="project-card fade-in">
+                    <div class="project-card zoom-in stagger-item">
                         <div class="project-image has-image">
                             <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&h=200&fit=crop&auto=format&q=80" alt="Women Empowerment Event">
                             <i class="fas fa-female"></i>
@@ -704,7 +1032,7 @@
                             <p class="project-description">Coordinated large-scale event with strategic shoot planning and execution.</p>
                         </div>
                     </div>
-                    <div class="project-card fade-in">
+                    <div class="project-card slide-in-right stagger-item">
                         <div class="project-image has-image">
                             <img src="https://images.unsplash.com/photo-1606811971618-4486d14f3f99?w=400&h=200&fit=crop&auto=format&q=80" alt="Dental Clinic Marketing">
                             <i class="fas fa-tooth"></i>
@@ -726,6 +1054,32 @@
             <div class="container">
                 <h2 class="section-title fade-in">Let's Connect</h2>
                 <p class="section-subtitle fade-in">Ready to collaborate on your next marketing project? Let's discuss how I can help grow your brand.</p>
+                
+                <div class="contact-form-container fade-in">
+                    <form id="contact-form" action="https://formspree.io/f/xdoqgqbl" method="POST">
+                        <div class="form-group">
+                            <label for="name" class="form-label">Your Name</label>
+                            <input type="text" id="name" name="name" class="form-control" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email" class="form-label">Your Email</label>
+                            <input type="email" id="email" name="email" class="form-control" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="message" class="form-label">Your Message</label>
+                            <textarea id="message" name="message" class="form-control" required></textarea>
+                        </div>
+                        
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-paper-plane"></i> Send Message
+                        </button>
+                        
+                        <div class="form-status" id="form-status"></div>
+                    </form>
+                </div>
+                
                 <div class="contact-grid">
                     <div class="contact-item fade-in">
                         <div class="contact-icon"><i class="fas fa-envelope"></i></div>
@@ -770,6 +1124,9 @@
             
             const icon = document.querySelector('.theme-toggle i');
             icon.className = newTheme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+            
+            // Update floating shapes for dark mode
+            updateFloatingElements();
         }
 
         // Load saved theme
@@ -779,54 +1136,107 @@
             
             const icon = document.querySelector('.theme-toggle i');
             icon.className = savedTheme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+            
+            // Create particle background
+            createParticles();
+            
+            // Initialize floating elements
+            updateFloatingElements();
         });
 
-        // Download Resume
-        function downloadResume() {
-            // Create a simple text version of the resume for download
-            const resumeContent = `JAYSHREE JANGIR
-Jaipur | https://www.linkedin.com/in/jayshree-jangir-8724b61a6/ | 7339707194 | jangirjayshree57@gmail.com
-
-PROFESSIONAL SUMMARY
-Versatile professional with 2+ years of experience in marketing, branding, event management, and digital strategy. Skilled in managing campaigns, events, e-commerce (Shopify, listings), and social media content. Adept at balancing creative storytelling with business outcomes, with proven strengths in leadership, communication, and problem-solving.
-
-SKILLS
-• Brand Strategy & Storytelling
-• Digital Marketing Campaigns (Meta Ads)
-• Amazon and Shopify – Product listing, content strategy, storefront management
-• Research, Insights & Analytics
-• Project & Event Management
-• Content Planning & Execution
-• Leadership & Communication
-
-PROFESSIONAL EXPERIENCE
-Branding & Marketing Strategist | Chiraayuu Marketing Agency
-• Successfully organized an Influencers meetup with 15+ influencers to promote client brand awareness and discussed upon societal initiatives, resulting in 20% increased engagement and visibility.
-• Managed projects across branding, marketing, and client strategy.
-• Executed marketing campaigns including social and paid ads.
-• Handled influencer tie-ups and content planning.
-• Managed around 15+ client projects, using Monday.com, including scheduling meetings, maintaining project calendars, and ensuring timely delivery.
-• Coordinated with internal teams to meet campaign KPIs, oversee influencer marketing, and maintain comprehensive project documentation.
-• Developed 20+ research-based content pieces, including product posts, business pitches, and brand presentations.
-
-EDUCATION CERTIFICATION
-• Bachelor of Commerce (B.Com), 2022
-• Rajasthan University, Kanoria College.
-• Class 12th (Commerce), 2019
-• Kendriya Vidhyalaya, Churu.
-• Basic fundamentals of Project Management
-• Introduction to GA4`;
-
-            const blob = new Blob([resumeContent], { type: 'text/plain' });
-            const url = window.URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = 'Jayshree_Jangir_Resume.txt';
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            window.URL.revokeObjectURL(url);
+        // Update floating elements based on theme
+        function updateFloatingElements() {
+            const isDark = document.body.getAttribute('data-theme') === 'dark';
+            const shapes = document.querySelectorAll('.shape');
+            
+            // Update shapes
+            shapes.forEach(shape => {
+                shape.style.background = isDark ? 'var(--secondary-color)' : 'var(--primary-color)';
+            });
         }
+
+        // Create particle background
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 20;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                // Random properties
+                const size = Math.random() * 3 + 1;
+                const left = Math.random() * 100;
+                const animationDuration = Math.random() * 20 + 10;
+                const animationDelay = Math.random() * 5;
+                
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                particle.style.left = `${left}%`;
+                particle.style.animationDuration = `${animationDuration}s`;
+                particle.style.animationDelay = `${animationDelay}s`;
+                
+                particlesContainer.appendChild(particle);
+            }
+        }
+
+        // Download Resume as PDF
+        function downloadResume() {
+            // Create a link to download the PDF file
+            const link = document.createElement('a');
+            link.href = 'Jayshree_Jangir_Resume.pdf';
+            link.download = 'Jayshree_Jangir_Resume.pdf';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+        }
+
+        // Contact Form Handling
+        const contactForm = document.getElementById('contact-form');
+        const submitBtn = document.getElementById('submit-btn');
+        const formStatus = document.getElementById('form-status');
+        
+        contactForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            // Change button state
+            const originalText = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+            submitBtn.disabled = true;
+            
+            // Hide any previous status
+            formStatus.className = 'form-status';
+            formStatus.textContent = '';
+            
+            try {
+                const formData = new FormData(contactForm);
+                const response = await fetch(contactForm.action, {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                });
+                
+                if (response.ok) {
+                    // Success
+                    formStatus.className = 'form-status success';
+                    formStatus.innerHTML = '<i class="fas fa-check-circle"></i> Thank you! Your message has been sent successfully.';
+                    contactForm.reset();
+                } else {
+                    // Error
+                    throw new Error('Form submission failed');
+                }
+            } catch (error) {
+                // Network error or other issues
+                formStatus.className = 'form-status error';
+                formStatus.innerHTML = '<i class="fas fa-exclamation-circle"></i> There was an error sending your message. Please try again.';
+            } finally {
+                // Reset button state
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+            }
+        });
 
         // Smooth scrolling for navigation links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -842,7 +1252,7 @@ EDUCATION CERTIFICATION
             });
         });
 
-        // Fade in animation on scroll
+        // Animation on scroll
         const observerOptions = {
             threshold: 0.1,
             rootMargin: '0px 0px -50px 0px'
@@ -856,10 +1266,17 @@ EDUCATION CERTIFICATION
             });
         }, observerOptions);
 
-        // Observe all fade-in elements
+        // Observe all animation elements
         document.addEventListener('DOMContentLoaded', function() {
-            document.querySelectorAll('.fade-in').forEach(el => {
+            document.querySelectorAll('.fade-in, .slide-in-left, .slide-in-right, .zoom-in').forEach(el => {
                 observer.observe(el);
+            });
+            
+            // Stagger animation for cards
+            document.querySelectorAll('.stagger-item').forEach((item, index) => {
+                setTimeout(() => {
+                    observer.observe(item);
+                }, index * 100);
             });
         });
 
@@ -876,4 +1293,3 @@ EDUCATION CERTIFICATION
     </script>
 </body>
 </html>
-
